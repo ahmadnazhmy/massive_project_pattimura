@@ -2,13 +2,13 @@ import './profile.scss';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import iconHolify from '../../assets/holify-icon.png';
-// import imgProfile from '../../assets/profile.png';
+import imgProfile from '../../assets/profile.png';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 const Profile = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState(null);
-  // const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
   const [userData, setUserData] = useState({
     iduser: '',
     name: '',
@@ -66,14 +66,14 @@ const Profile = () => {
     }));
   };
   
-  // const handleProfilePictureChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setProfilePicture(URL.createObjectURL(file));
-  // };
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    setProfilePicture(URL.createObjectURL(file));
+  };
 
-  // const handleRemoveProfilePicture = () => {
-  //   setProfilePicture(null);
-  // };
+  const handleRemoveProfilePicture = () => {
+    setProfilePicture(null);
+  };
 
   const handleSaveChanges = async () => {
     try {
@@ -151,14 +151,14 @@ const Profile = () => {
               </div>
               <button onClick={handleSaveChanges}>Simpan</button>
             </div>
-            {/* <div className='right-side'>
+            <div className='right-side'>
               <img src={profilePicture || imgProfile} alt="profile" className='profile-picture' />
               <div className='section-btn-profile'>
                 <input type="file" accept="image/*" onChange={handleProfilePictureChange} style={{ display: 'none' }} id="upload-button" />
                 <button onClick={() => document.getElementById('upload-button').click()}>Ganti</button>
                 <button onClick={handleRemoveProfilePicture}>Hapus</button>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </main>

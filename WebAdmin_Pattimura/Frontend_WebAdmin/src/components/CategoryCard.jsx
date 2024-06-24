@@ -57,7 +57,9 @@ const CategoryCard = ({ kategori }) => {
 
         return (
           <div key={index} className={`card ${item.status}`} onClick={() => handleCardClick(item)}>
-            <img src={`http://localhost:3002/uploads/${req.file.filename}`} alt="Report" />
+            <div className='card-photo'>
+              <img src={`http://localhost:3002/uploads/${req.file.filename}`} alt="Report" />
+            </div>
             <div className='card-desc'>
               <br /><b>{item.location}</b>
               <p>{truncatedDescription}</p>

@@ -42,15 +42,16 @@ if (!fs.existsSync('uploads')) {
 // Setup multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Uploads directory
+    cb(null, 'uploads/'); // Direktori untuk menyimpan file yang diunggah
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 });
 
 // Initialize Multer upload middleware
 const upload = multer({ storage: storage });
+
 // Function to convert image to HEX
 const convertImageToHex = (imageUrl) => {
   return new Promise((resolve, reject) => {
@@ -79,15 +80,17 @@ const convertHexToImage = (hexImage, outputPath) => {
   });
 };
 
-// Upload endpoint for single image
+// Endpoint to upload a single image
 app.post('/uploadImage', upload.single('image'), async (req, res) => {
   if (!req.file) {
     return res.status(400).send({ error: 'No file uploaded' });
   }
 
+  const imageUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+
   try {
     const hexImage = await convertImageToHex(req.file.path);
-    res.send({ hexImage });
+    res.send({ imageUrl, hexImage });
   } catch (error) {
     console.error('Error converting image to hex:', error);
     res.status(500).send('Error converting image to hex');
@@ -95,43 +98,57 @@ app.post('/uploadImage', upload.single('image'), async (req, res) => {
 });
 
 // Endpoint to manage reports
+// Endpoint untuk mengelola laporan
 app.post('/reports', upload.array('photos', 1), async (req, res) => {
-  const { iduser, location, additionalDetails, status, category } = req.body;
+  const { location, additionalDetails, status, category, iduser } = req.body;
 
-  if (!iduser || !location || !additionalDetails || !status || !category) {
+  if (!location || !additionalDetails || !status || !category || !iduser) {
     return res.status(400).send('Missing required fields');
   }
 
-  try {
+  let photo;
+  if (req.files.length > 0) {
     const file = req.files[0];
-    const photo = file.filename;
+    photo = file.filename;
 
-    const hexImage = await convertImageToHex(file.path);
+    // Konversi gambar ke HEX
+    try {
+      const hexImage = await convertImageToHex(file.path);
+      
+      // Kirim data HEX ke API prediksi pothole
+      const response = await axios.post('https://pothole-detection.1iev9smru8jl.us-south.codeengine.appdomain.cloud/predict', { image_hex: hexImage }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    const url = 'https://pothole-detection.1iev9smru8jl.us-south.codeengine.appdomain.cloud/predict';
-    const response = await axios.post(url, { image_hex: hexImage }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+      const predictions = response.data;
+      const numberOfPotholes = predictions.count_pothole; // Ambil jumlah pothole berdasarkan respons AI
 
-    const numberOfPotholes = response.data.count_pothole;
+      // Konversi HEX kembali ke gambar
+      const annotatedImagePath = path.join(__dirname, 'annotated_images', `annotated-${Date.now()}.jpg`);
+      await convertHexToImage(predictions.annotated_image_hex, annotatedImagePath);
 
-    const query = 'INSERT INTO laporan (iduser, laporan_date, location, description, status, category, photo, numberOfPotholes) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)';
-    const values = [iduser, location, additionalDetails, status, category, photo, numberOfPotholes];
+      // Simpan laporan ke database
+      const query = 'INSERT INTO laporan (iduser, laporan_date, location, description, status, category, photo, numberOfPotholes) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)';
+      const values = [iduser, location, additionalDetails, status, category, photo, numberOfPotholes];
 
-    db.query(query, values, (err, result) => {
-      if (err) {
-        console.error('Error inserting report:', err);
-        return res.status(500).send('Error inserting report');
-      }
-      res.status(200).json({ message: 'Report submitted successfully', count_pothole: numberOfPotholes });
-    });
-  } catch (error) {
-    console.error('Error processing report:', error);
-    res.status(500).send('Error processing report');
+      db.query(query, values, (err, result) => {
+        if (err) {
+          console.error('Error inserting report:', err);
+          return res.status(500).send('Error inserting report');
+        }
+        res.status(200).json({ message: 'Report submitted successfully', count_pothole: numberOfPotholes });
+      });
+    } catch (error) {
+      console.error('Error processing report:', error);
+      res.status(500).send('Error processing report');
+    }
+  } else {
+    return res.status(400).send('No photos uploaded');
   }
 });
+
 
 // Endpoint to fetch all reports
 app.get('/reports', (req, res) => {
@@ -329,7 +346,3 @@ app.get('/', (req, res) => {
   res.send('Backend server is running');
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});

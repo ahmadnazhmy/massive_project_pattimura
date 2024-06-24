@@ -1,5 +1,4 @@
-
-
+import './history.scss';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -53,11 +52,13 @@ const History = () => {
     setSelectedReport(null);
   };
 
-  const truncateText = (text, maxLength) => {
-    if (!text) return ''; // Handle case where text is undefined or null
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength) + '...';
-  };
+  // const truncateText = (text, maxLength) => {
+  //   if (!text) return ''; // Handle case where text is undefined or null
+  //   if (text.length <= maxLength) return text;
+  //   return text.substring(0, maxLength) + '...';
+  // };
+
+  
 
   return (
     <div className='page'>
@@ -84,28 +85,29 @@ const History = () => {
       </nav>
       <main>
         <div className='section-main-history'>
-          <h2>Riwayat Laporan</h2>
-          <p>Laporan yang pernah dikirim oleh masyarakat</p>
+          <h2 style={{ textAlign: 'center' }}>Riwayat Laporan</h2>
+          <p style={{ textAlign: 'center' }}>Laporan yang pernah dikirim oleh masyarakat</p>
         </div>
-        <div className='section-history'>
+        
           {data.map(report => (
-            <div key={report.idlaporan} className='section-history-item' onClick={() => handleReportClick(report)}>
-              <img src={report.annotatedImageUrl} alt="Annotated Report" />
-              <div className='desc'>
-                <h4>{report.location}</h4>
-                <div className='info'>
-                  <p className='info-hole'>{report.category}</p>
-                  <p className={`info-status ${report.status.toLowerCase()}`}>{report.status}</p>
+              <div key={report.idlaporan} className='section-history' onClick={() => handleReportClick(report)}>
+                <div className='section'>
+                  <img src={report.annotatedImageUrl} alt="Annotated Report" />
                 </div>
-                <p className='description'>{truncateText(report.description, 15)}</p>
-                <div className='rapporteur'>
-                  <p>Oleh {report.nama_pengguna}</p>
-                  <p>{new Date(report.laporan_date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</p>
+                <div className='desc'>
+                  <h4>{report.location}</h4>
+                  <div className='info'>
+                    <p className='info-hole'>{report.category}</p>
+                    <p className={`info-status ${report.status.toLowerCase()}`}>{report.status}</p>
+                  </div>
+                  <p className='description'>{report.description}</p>
+                  <div className='rapporteur'>
+                    <p>Oleh {report.nama_pengguna}</p>
+                    <p>{new Date(report.laporan_date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
         {isPopupVisible && (
           <Popup report={selectedReport} onClose={handleClosePopup} />
         )}

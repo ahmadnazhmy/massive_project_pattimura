@@ -266,6 +266,13 @@ body {
   margin-top: 10px;
 }
 
+.card-photos {
+  width: 100%;
+  height: 200px;
+  border: #EADDCD 2px solid;
+  border-radius: 10px;
+}
+
 .card-sender img {
   width: 40px;
   height: auto;
@@ -351,12 +358,13 @@ body {
   cursor: pointer;
   font-size: 16px;
   color: #fff;
+  font-family: "poppins";
 }
 
-.status-button.selesai {
+.status-button.Selesai {
   background-color: #28a745;
 }
 
-.status-button.proses {
+.status-button.Diproses {
   background-color: #ffc107;
 }

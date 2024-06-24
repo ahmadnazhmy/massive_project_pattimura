@@ -33,7 +33,9 @@ const PopupCategoryCard = ({ item, onClose }) => {
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="popup-close" onClick={onClose}>×</button>
-        <img src={item.annotatedImageUrl} alt="Annotated Report" />
+        <div className='card-photos'>
+          <img src={item.annotatedImageUrl} alt="Annotated Report" />
+        </div>
         <div className='card-desc'>
           <h3>{item.location}</h3>
           <p>{item.description}</p>
