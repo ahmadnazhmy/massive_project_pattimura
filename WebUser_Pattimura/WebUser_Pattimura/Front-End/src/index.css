@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* line-height: 1.5; */
+}
+
+h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 96px;
+  color: #561d02;
+}
+
+h2 {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 72px;
+  color: #561d02;
+}
+
+h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 54px;
+  color: #561d02;
+}
+
+h4 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  color: #561d02;
+}
+
+h5 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 30px;
+  color: #561d02;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #561d02;
+}
+
+input {
+  font-size: 16px;
+  line-height: 30px;
+  color: #561d02;
+}
+
+input::placeholder {
+  color: #561d0288;
+}
+
+button {
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+  color: white;
+  background-color: #fe9b19;
+}
+
+button:hover {
+  background-color: #e28203;
+}
+
+.btn-logout {
+  width: 50px;
+  margin-left: 15px;
+  color: #e93838;
+  background-color: white;
+  border: 2px solid #e93838;
+}
+
+.btn-logout:hover {
+  color: white;
+  background-color: #e93838;
+}
+
+@media only screen and (min-width: 600px) {
+}
+
+/* Setting CSS MUI */
+.css-1c35hjw-MuiPaper-root-MuiAccordion-root::before {
+  display: none;
+}
+
+:focus-visible {
+  outline: none;
+}
+
+.css-1wz20g3::before {
+  display: none;
+}
+
+.css-qiwgdb.css-qiwgdb.css-qiwgdb {
+  padding: 12px 10px;
+  padding-right: 32px;
+}
+
+input[type="date"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #88ab8e;
+  background-color: white;
+  border-radius: 5px;
+}

@@ -1,0 +1,78 @@
+main {
+  .section-profile {
+    width: 1086px;
+
+    h3 {
+      color: #fe9b19;
+    }
+
+    .content-profile {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      column-gap: 30px;
+      height: 300px;
+      margin-top: 30px;
+
+      label {
+        margin-top: 30px;
+        color: #bf8942;
+      }
+
+      input {
+        border: none;
+        padding: 10px 15px;
+        background-color: #ffeed7;
+        border-radius: 10px;
+      }
+
+      .left-side {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .center-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .center-input {
+          display: flex;
+          flex-direction: column;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .right-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        img {
+          margin-bottom: 50px;
+        }
+
+        .section-btn-profile {
+          display: grid;
+          grid-template-columns: auto auto;
+          column-gap: 20px;
+
+          button:first-child {
+            color: #561d02;
+            background-color: #ffedd7;
+          }
+        }
+      }
+    }
+  }
+}
+// Tambahkan ini ke file profile.scss
+.profile-picture {
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}

@@ -1,0 +1,195 @@
+.page {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  main {
+    .section-main-history {
+      display: flex;
+      justify-content: center;  // Memusatkan secara horizontal
+      align-items: center;      // Memusatkan secara vertikal
+      width: 1086px;
+    
+      h2, p {
+        text-align: center;     // Memastikan teks di tengah
+      }
+    }
+        
+
+    .section-list-btn {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 100px;
+
+      button {
+        width: 200px;
+        border: 1px solid #561d02;
+        color: #561d02;
+        background-color: white;
+      }
+
+      .active-btn {
+        border: none;
+        color: white;
+        background-color: #fe9b19;
+      }
+    }
+
+    .section-history {
+      display: flex;
+      flex-direction: column;
+      margin-top: 50px;
+
+      .section-history-item {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+        border:#EADDCD solid 2px;
+        border-radius: 10px;
+      }
+      
+      .section-history-item img{
+        width: 500px;
+        border-radius: 10px;
+      }
+
+      .desc {
+        position: relative;
+        padding-left: 30px;
+        width: 500px;
+
+        h3 {
+          font-size: 32px;
+        }
+
+        /* Style untuk info-hole */
+        .info-hole {
+          display: inline-block;
+          margin-right: 20px; /* Atur jarak antara holes dan status */
+          margin-top: 20px;
+          padding: 5px;
+          border: 1px solid #561d02;
+          border-radius: 10px;
+          color: #561d02a4;
+        }
+        /* Style untuk info-hole */
+        .info-hole {
+          display: inline-block;
+          margin-right: 20px; /* Atur jarak antara holes dan status */
+          margin-top: 20px;
+          padding: 5px;
+          border: 1px solid #561d02;
+          border-radius: 10px;
+          color: #561d02a4;
+        }
+
+        /* Style untuk info-status */
+        .info-status {
+          display: inline-block;
+          font-weight: 500; /* Contoh: bold text */
+          padding: 5px;
+          border: 1px solid #ffffff00;
+          border-radius: 10px;
+          color: #561d02a4;
+          background-color: #EADDCD;
+        }
+
+        /* Warna berdasarkan status */
+        .info-status.paling-baru {
+          color: #561d02;
+        }
+
+        .info-status.selesai {
+          color: green;
+        }
+
+        .info-status.menunggu {
+          color: red;
+        }
+
+        .info-status.diproses {
+          color: orange;
+        }
+
+        .info-status.paling-lama {
+          color: #561d02;
+        }
+
+        /* Style untuk mengatur info section */
+        .desc .info {
+          display: flex;
+          align-items: center;
+          margin-top: 100px; /* Atur jarak sesuai kebutuhan */
+        }
+
+
+        .rapporteur {
+          bottom: 25px;
+          display: flex;
+          justify-content: space-between;
+          width: 90%;
+
+          p {
+            margin-top: 0px;
+            color: #561d02a4;
+          }
+        }
+      }
+    }
+
+
+
+        /* Ensuring all footer-specific styles are scoped */
+    .history-footer {
+      background-color: #ffffff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .history-footer .section-footer {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .history-footer .section-list {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .history-footer .section-list p {
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .history-footer .cpyright {
+      margin: 10px 0 ;
+      flex: 1;
+      text-align: center;
+    }
+
+    .history-footer .sosmed {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex: 1;
+    }
+
+    
+  }
+ }
+

@@ -1,0 +1,29 @@
+.right-side {
+  .options-register {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 20px;
+
+    h4 {
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .active {
+      color: #fe9b19;
+      text-decoration: underline;
+    }
+  }
+
+  form {
+    .double-box-input {
+      display: flex;
+
+      .left-box {
+        margin-right: 10px;
+      }
+    }
+  }
+}
