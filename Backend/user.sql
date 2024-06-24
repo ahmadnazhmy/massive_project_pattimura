@@ -1,9 +1,0 @@
-CREATE TABLE user (
-    iduser INT(11) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    username VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    telp VARCHAR(15) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    PRIMARY KEY (iduser)
-);
