@@ -13,6 +13,8 @@ const PORT = 3002;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/annotated_images', express.static(path.join(__dirname, 'annotated_images')));
+
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,6 +40,11 @@ db.connect((err) => {
 if (!fs.existsSync('uploads')) {
   fs.mkdirSync('uploads');
 }
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
 // Setup multer for file uploads
 const storage = multer.diskStorage({
@@ -126,12 +133,14 @@ app.post('/reports', upload.array('photos', 1), async (req, res) => {
       const numberOfPotholes = predictions.count_pothole; // Ambil jumlah pothole berdasarkan respons AI
 
       // Konversi HEX kembali ke gambar
-      const annotatedImagePath = path.join(__dirname, 'annotated_images', `annotated-${Date.now()}.jpg`);
-      await convertHexToImage(predictions.annotated_image_hex, annotatedImagePath);
+      const annotatedImagePath = `annotated_images/annotated-${Date.now()}.jpg`;
+      const fullAnnotatedImagePath = path.join(__dirname, annotatedImagePath);
+      await convertHexToImage(predictions.annotated_image_hex, fullAnnotatedImagePath);
+
 
       // Simpan laporan ke database
       const query = 'INSERT INTO laporan (iduser, laporan_date, location, description, status, category, photo, numberOfPotholes) VALUES (?, NOW(), ?, ?, ?, ?, ?, ?)';
-      const values = [iduser, location, additionalDetails, status, category, photo, numberOfPotholes];
+      const values = [iduser, location, additionalDetails, status, category, annotatedImagePath, numberOfPotholes];
 
       db.query(query, values, (err, result) => {
         if (err) {
@@ -346,3 +355,6 @@ app.get('/', (req, res) => {
   res.send('Backend server is running');
 });
 
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

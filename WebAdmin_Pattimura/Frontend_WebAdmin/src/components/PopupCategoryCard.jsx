@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Annotated from '../assets/images/image-1719290484448.jpeg';
 
 const PopupCategoryCard = ({ item, onClose }) => {
   const [newStatus, setNewStatus] = useState(item.status); // State untuk menyimpan status baru
@@ -34,7 +35,11 @@ const PopupCategoryCard = ({ item, onClose }) => {
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="popup-close" onClick={onClose}>×</button>
         <div className='card-photos'>
-          <img src={item.annotatedImageUrl} alt="Annotated Report" />
+              <img
+                  src={Annotated}
+                  alt="Annotated Report"
+              />
+              {/* <p>{item.photo}</p> */}
         </div>
         <div className='card-desc'>
           <h3>{item.location}</h3>

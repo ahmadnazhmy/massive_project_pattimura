@@ -6,7 +6,8 @@ import iconHolify from '../../assets/holify-icon.png';
 import instagram from '../../assets/instagram.png';
 import twitter from '../../assets/twitter.png';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import Popup from '../component/Popup'; // Import the Popup component
+import Popup from '../component/Popup';
+import Annotated from '../../assets/image-1719290484448.jpeg'; // Import the Popup component
 
 const History = () => {
   const navigate = useNavigate();
@@ -92,7 +93,13 @@ const History = () => {
           {data.map(report => (
               <div key={report.idlaporan} className='section-history' onClick={() => handleReportClick(report)}>
                 <div className='section'>
-                  <img src={report.annotatedImageUrl} alt="Annotated Report" />
+              
+                    <img
+                      src={Annotated}
+                      alt="Annotated Report"
+                    />
+                    {/* <p>{report.photo}</p> */}
+                  
                 </div>
                 <div className='desc'>
                   <h4>{report.location}</h4>
